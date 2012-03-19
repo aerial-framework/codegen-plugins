@@ -1,17 +1,11 @@
 package org.aerialframework.flex
 {
-	import com.mysql.workbench.Inflector;
-	import com.mysql.workbench.model.Column;
-	import com.mysql.workbench.model.DomesticKey;
-	import com.mysql.workbench.model.ForeignKey;
 	import com.mysql.workbench.model.Schema;
 	import com.mysql.workbench.model.Table;
-	
+
 	import org.aerialframework.abstract.AbstractPlugin;
 	import org.aerialframework.abstract.GeneratedFile;
 
-	import util.ActionScriptUtil;
-	
 	public class Service extends AbstractPlugin
 	{
 		public static const MODEL_PACKAGE:String = "modelPackage";

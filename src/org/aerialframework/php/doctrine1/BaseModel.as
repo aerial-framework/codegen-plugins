@@ -1,6 +1,5 @@
 package org.aerialframework.php.doctrine1
 {
-	import com.mysql.workbench.FileWriter;
 	import com.mysql.workbench.Inflector;
 	import com.mysql.workbench.model.Column;
 	import com.mysql.workbench.model.DomesticKey;
@@ -8,7 +7,7 @@ package org.aerialframework.php.doctrine1
 	import com.mysql.workbench.model.Index;
 	import com.mysql.workbench.model.Schema;
 	import com.mysql.workbench.model.Table;
-	
+
 	import org.aerialframework.abstract.AbstractPlugin;
 	import org.aerialframework.abstract.GeneratedFile;
 

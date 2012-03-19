@@ -1,10 +1,8 @@
 package org.aerialframework.abstract
 {
-	import avmplus.getQualifiedClassName;
-	
 	import com.mysql.workbench.FileWriter;
 	import com.mysql.workbench.model.Schema;
-	
+
 	import flash.events.EventDispatcher;
 
 	public class AbstractPlugin extends EventDispatcher
@@ -19,7 +17,7 @@ package org.aerialframework.abstract
 		{
 			_schema 			= schema;
 			_options 			= options ? options : {};
-			if(relationships) 	_relationships = relationships;
+			_relationships 		= relationships ? relationships : new XML();
 			
 			initialize();
 		}

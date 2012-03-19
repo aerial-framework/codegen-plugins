@@ -1,9 +1,8 @@
 package org.aerialframework.php
 {
-	import com.mysql.workbench.Inflector;
 	import com.mysql.workbench.model.Schema;
 	import com.mysql.workbench.model.Table;
-	
+
 	import org.aerialframework.abstract.AbstractPlugin;
 	import org.aerialframework.abstract.GeneratedFile;
 
@@ -61,6 +60,8 @@ package org.aerialframework.php
 				
 				files.push(new GeneratedFile(this.fileType, this.servicesPackage, table.className + suffix + ".php", fw.stream));
 			}
+			
+			return files;
 		}
 	}
 }
