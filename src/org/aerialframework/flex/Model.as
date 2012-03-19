@@ -8,7 +8,8 @@ package org.aerialframework.flex
 	import com.mysql.workbench.model.Table;
 	
 	import org.aerialframework.abstract.AbstractPlugin;
-	
+	import org.aerialframework.abstract.GeneratedFile;
+
 	import util.ActionScriptUtil;
 	
 	public class Model extends AbstractPlugin
@@ -38,12 +39,12 @@ package org.aerialframework.flex
 			return "flex-model";
 		}
 		
-		override public function generate():void
+		override public function generate():Array
 		{
-			generateModels();
+			return generateModels();
 		}
 		
-		private function generateModels(tables:Array = null):void
+		private function generateModels():Array
 		{
 			if(!modelsPackage || !suffix)
 				throw new Error("'modelsPackage' or 'suffix' are not set.");	
@@ -62,6 +63,8 @@ package org.aerialframework.flex
 			var xmlFK:XML
 			var alias:String;
 			var aliases:Array = new Array();
+			
+			var files:Array = [];
 			
 			for each (table in schema.tables)
 			{
@@ -233,8 +236,10 @@ package org.aerialframework.flex
 				
 				fw.indentBack().add("}").newLine().indentBack().add("}"); //Close class
 				
-				notify(this.modelsPackage, table.className + this.suffix + ".as", fw.stream);
-			}	
-		}
+				files.push(new GeneratedFile(this.fileType, this.modelsPackage, table.className + this.suffix + ".as", fw.stream));
+			}
+			
+			return files;
+		}		
 	}
 }

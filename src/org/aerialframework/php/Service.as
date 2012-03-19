@@ -5,7 +5,8 @@ package org.aerialframework.php
 	import com.mysql.workbench.model.Table;
 	
 	import org.aerialframework.abstract.AbstractPlugin;
-	
+	import org.aerialframework.abstract.GeneratedFile;
+
 	public class Service extends AbstractPlugin
 	{
 		public static const PACKAGE:String = "package";
@@ -33,17 +34,19 @@ package org.aerialframework.php
 			return "php-doctrine1-service";
 		}
 		
-		override public function generate():void
+		override public function generate():Array
 		{
-			generateServices();
+			return generateServices();
 		}
 		
-		private function generateServices():void
+		private function generateServices():Array
 		{
 			if(!servicesPackage)
 				throw new Error("'servicePackage' not set.");	
 			
-			var table:Table
+			var table:Table;
+			var files:Array = [];
+
 			for each (table in schema.tables)
 			{
 				if(tables && (tables.indexOf(table.name) == -1))
@@ -56,7 +59,7 @@ package org.aerialframework.php
 				fw.indentBack().add('}').newLine();
 				fw.indentBack().add('?>').newLine(3);
 				
-				notify(this.servicesPackage, table.className + suffix + ".php", fw.stream);
+				files.push(new GeneratedFile(this.fileType, this.servicesPackage, table.className + suffix + ".php", fw.stream));
 			}
 		}
 	}

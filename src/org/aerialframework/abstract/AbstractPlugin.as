@@ -6,8 +6,6 @@ package org.aerialframework.abstract
 	import com.mysql.workbench.model.Schema;
 	
 	import flash.events.EventDispatcher;
-	
-	import org.aerialframework.event.CodeGenEvent;
 
 	public class AbstractPlugin extends EventDispatcher
 	{
@@ -20,7 +18,7 @@ package org.aerialframework.abstract
 		public function AbstractPlugin(schema:Schema, options:Object=null, relationships:XML=null)
 		{
 			_schema 			= schema;
-			if(options) 		_options = options;
+			_options 			= options ? options : {};
 			if(relationships) 	_relationships = relationships;
 			
 			initialize();
@@ -71,26 +69,13 @@ package org.aerialframework.abstract
 		}
 		
 		/**
+		 * Returns an Array of GeneratedFile instances
+		 *
 		 * @Override
 		 */
-		public function generate():void
+		public function generate():Array
 		{
-		}
-		
-		protected function notify(filePackage:String, fileName:String, fileContent:String):void
-		{
-			//Dispatch an event containing the generated content.
-			var codegenEvent:CodeGenEvent = new CodeGenEvent(CodeGenEvent.CREATED);
-			
-			if(!this.fileType)
-				throw new Error("'fileType' property not set on " + getQualifiedClassName(this));
-			
-			codegenEvent.fileType 		= this.fileType;
-			codegenEvent.filePackage 	= filePackage;
-			codegenEvent.fileName 		= fileName;
-			codegenEvent.fileContent 	= fileContent;
-			
-			dispatchEvent(codegenEvent);
+			return [];
 		}
 		
 		/**

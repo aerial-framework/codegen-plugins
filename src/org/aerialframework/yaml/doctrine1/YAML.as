@@ -10,7 +10,8 @@ package org.aerialframework.yaml.doctrine1
 	import com.mysql.workbench.model.Table;
 	
 	import org.aerialframework.abstract.AbstractPlugin;
-	
+	import org.aerialframework.abstract.GeneratedFile;
+
 	public class YAML extends AbstractPlugin
 	{
 		public static const TABLES:String = "tables";
@@ -32,14 +33,14 @@ package org.aerialframework.yaml.doctrine1
 			return "yaml-doctrine1-yaml";
 		}
 		
-		override public function generate():void
+		override public function generate():Array
 		{
-			generateYaml();
+			return generateYaml();
 		}
 		
-		private function generateYaml():void
+		private function generateYaml():Array
 		{
-			var yaml:YamlWriter = new YamlWriter(); //YamlWriter.getInstance();
+			var yaml:YamlWriter = new YamlWriter();
 			yaml.addKeyValue("detect_relations", true);
 			yaml.addNode("options");
 			yaml.addKeyValue("collate", schema.defaultCollationName);
@@ -122,7 +123,7 @@ package org.aerialframework.yaml.doctrine1
 				yaml.addLineBreak(); 
 			}
 			
-			notify("", "schema.yml", yaml.stream);
+			return [new GeneratedFile(this.fileType, "", "schema.yml", yaml.stream)];
 		}
 	}
 }

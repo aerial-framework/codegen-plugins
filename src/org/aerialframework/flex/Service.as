@@ -8,7 +8,8 @@ package org.aerialframework.flex
 	import com.mysql.workbench.model.Table;
 	
 	import org.aerialframework.abstract.AbstractPlugin;
-	
+	import org.aerialframework.abstract.GeneratedFile;
+
 	import util.ActionScriptUtil;
 	
 	public class Service extends AbstractPlugin
@@ -47,12 +48,12 @@ package org.aerialframework.flex
 			return "flex-service";
 		}
 		
-		override public function generate():void
+		override public function generate():Array
 		{
-			generateServices();
+			return generateServices();
 		}
 		
-		private function generateServices():void
+		private function generateServices():Array
 		{
 			if(!servicePackage || !modelPackage)
 				throw new Error("'servicePackage' or 'modelPackage' are not set.");	
@@ -60,6 +61,9 @@ package org.aerialframework.flex
 			var table:Table
 			var serviceClass:String;
 			var modelClass:String;
+			
+			var files:Array = [];
+			
 			for each (table in schema.tables)
 			{
 				if(tables && (tables.indexOf(table.name) == -1))
@@ -83,8 +87,10 @@ package org.aerialframework.flex
 				fw.add("}").newLine().indentBack();
 				fw.add("}").newLine();
 				
-				notify(this.servicePackage, table.className + serviceSuffix + ".as", fw.stream);
+				files.push(new GeneratedFile(this.fileType, this.servicePackage, table.className + serviceSuffix + ".as", fw.stream));
 			}
+			
+			return files;
 		}
 	}
 }
