@@ -24,7 +24,12 @@ package org.aerialframework.php
 		
 		override public function get fileType():*
 		{
-			return "php-doctrine1-service";
+			return "Aerial Service";
+		}
+
+		override public function get language():*
+		{
+			return "PHP";
 		}
 		
 		override public function generate():*

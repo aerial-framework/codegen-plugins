@@ -25,7 +25,12 @@ package org.aerialframework.php.doctrine1
 		
 		override public function get fileType():*
 		{
-			return "php-doctrine1-model";
+			return "Aerial Model";
+		}
+
+		override public function get language():*
+		{
+			return "PHP";
 		}
 		
 		override public function generate():*

@@ -26,6 +26,11 @@ package org.aerialframework.abstract
 		{
 		}
 
+		public function get language():*
+		{
+			return "Unspecified";
+		}
+
 		public function get schema():Schema
 		{
 			return _schema;

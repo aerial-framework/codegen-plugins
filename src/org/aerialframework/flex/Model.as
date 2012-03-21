@@ -31,7 +31,12 @@ package org.aerialframework.flex
 		
 		override public function get fileType():*
 		{
-			return "flex-model";
+			return "Flex Model";
+		}
+
+		override public function get language():*
+		{
+			return "ActionScript 3.0";
 		}
 		
 		override public function generate():*

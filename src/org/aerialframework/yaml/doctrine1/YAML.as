@@ -24,9 +24,14 @@ package org.aerialframework.yaml.doctrine1
 		
 		override public function get fileType():*
 		{
-			return "yaml-doctrine1-yaml";
+			return "Doctrine YAML";
 		}
-		
+
+		override public function get language():*
+		{
+			return "YAML";
+		}
+
 		override public function generate():*
 		{
 			return generateYaml();
