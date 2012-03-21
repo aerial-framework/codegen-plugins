@@ -31,7 +31,7 @@ package org.aerialframework.flex
 			serviceSuffix = options.hasOwnProperty(SERVICE_SUFFIX) ? options[SERVICE_SUFFIX] : "Service";
 		}
 		
-		override protected function get fileType():*
+		override public function get fileType():*
 		{
 			return "flex-service";
 		}

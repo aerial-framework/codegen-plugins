@@ -6,7 +6,6 @@ package org.aerialframework.yaml.doctrine1
 	import com.mysql.workbench.model.ForeignKey;
 	import com.mysql.workbench.model.Index;
 	import com.mysql.workbench.model.RelationKey;
-	import com.mysql.workbench.model.Schema;
 	import com.mysql.workbench.model.Table;
 
 	import org.aerialframework.abstract.AbstractPlugin;
@@ -23,7 +22,7 @@ package org.aerialframework.yaml.doctrine1
 			tables = options.hasOwnProperty(TABLES) ? options[TABLES] : null;
 		}
 		
-		override protected function get fileType():*
+		override public function get fileType():*
 		{
 			return "yaml-doctrine1-yaml";
 		}

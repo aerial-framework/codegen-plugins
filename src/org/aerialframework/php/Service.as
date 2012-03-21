@@ -22,7 +22,7 @@ package org.aerialframework.php
 			suffix = options.hasOwnProperty(SUFFIX) ? options[SUFFIX] : "Service";
 		}
 		
-		override protected function get fileType():*
+		override public function get fileType():*
 		{
 			return "php-doctrine1-service";
 		}

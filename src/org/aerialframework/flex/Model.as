@@ -1,7 +1,6 @@
 package org.aerialframework.flex
 {
 	import com.betabong.xml.e4x.E4X;
-	import com.betabong.xml.e4x.E4X;
 	import com.mysql.workbench.Inflector;
 	import com.mysql.workbench.model.Column;
 	import com.mysql.workbench.model.DomesticKey;
@@ -30,7 +29,7 @@ package org.aerialframework.flex
 			suffix = options.hasOwnProperty(SUFFIX) ? options[SUFFIX] : "VO";
 		}
 		
-		override protected function get fileType():*
+		override public function get fileType():*
 		{
 			return "flex-model";
 		}

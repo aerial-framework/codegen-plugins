@@ -28,7 +28,7 @@ package org.aerialframework.php.doctrine1
 			folderName = options.hasOwnProperty(BASE_FOLDER_NAME) ? options[BASE_FOLDER_NAME] : "base";
 		}
 		
-		override protected function get fileType():*
+		override public function get fileType():*
 		{
 			return "php-doctrine1-basemodel";
 		}
