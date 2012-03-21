@@ -22,14 +22,14 @@ package org.aerialframework.php.doctrine1
 			super(schema, options, relationships);
 		}
 		
-		override protected function initialize():void
+		override protected function initialize():*
 		{
 			modelsPackage = options.hasOwnProperty(PACKAGE) ? options[PACKAGE] : "org.aerialframework.vo";
 			tables = options.hasOwnProperty(TABLES) ? options[TABLES] : null;
 			folderName = options.hasOwnProperty(BASE_FOLDER_NAME) ? options[BASE_FOLDER_NAME] : "base";
 		}
 		
-		override protected function get fileType():String
+		override protected function get fileType():*
 		{
 			return "php-doctrine1-model";
 		}

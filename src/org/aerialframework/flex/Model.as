@@ -1,5 +1,6 @@
 package org.aerialframework.flex
 {
+	import com.betabong.xml.e4x.E4X;
 	import com.mysql.workbench.Inflector;
 	import com.mysql.workbench.model.Column;
 	import com.mysql.workbench.model.DomesticKey;
@@ -10,7 +11,7 @@ package org.aerialframework.flex
 	import org.aerialframework.abstract.AbstractPlugin;
 	import org.aerialframework.abstract.GeneratedFile;
 
-	import util.ActionScriptUtil;
+	import util.*;
 
 	public class Model extends AbstractPlugin
 	{
@@ -27,19 +28,19 @@ package org.aerialframework.flex
 			super(schema, options, relationships);
 		}
 		
-		override protected function initialize():void
+		override protected function initialize():*
 		{
 			modelsPackage = options.hasOwnProperty(PACKAGE) ? options[PACKAGE] : "org.aerialframework.vo";
 			tables = options.hasOwnProperty(TABLES) ? options[TABLES] : null;
 			suffix = options.hasOwnProperty(SUFFIX) ? options[SUFFIX] : "VO";
 		}
 		
-		override protected function get fileType():String
+		override protected function get fileType():*
 		{
 			return "flex-model";
 		}
 		
-		override public function generate():Array
+		override public function generate():*
 		{
 			return generateModels();
 		}
@@ -117,12 +118,12 @@ package org.aerialframework.flex
 					
 					fw.add("private var _"+ tmpName + ":*;").newLine();
 				}
-				
+
 				//Private vars: Custom Many
-				for each(xmlMN in relationships.mn.(table.(text() == tableName).parent()))
+				for each(xmlMN in E4X.evaluate(relationships, 'mn..table.(text() == "' + tableName + '").parent()'))
 				{
-					t1 = xmlMN.table.(text() == tableName)[0];
-					t2 = xmlMN.table.(text() != tableName)[0];
+					t1 = E4X.evaluate(xmlMN, 'table.(text() == "' + tableName + '")')[0];
+					t2 = E4X.evaluate(xmlMN, 'table.(text() != "' + tableName + '")')[0];
 					alias = (t2.attribute("alias").length() > 0 ? t2.attribute("alias") : t2.text());
 					
 					fw.add("private var _"+ Inflector.pluralCamelize(alias) + ":*;").newLine();

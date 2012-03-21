@@ -1,5 +1,9 @@
 package org.aerialframework.abstract
 {
+	/**
+	 * Asterisk is used for return types to avoid runtime type-mismatches with as3-eval
+	 */
+
 	import com.mysql.workbench.FileWriter;
 	import com.mysql.workbench.model.Schema;
 
@@ -8,21 +12,16 @@ package org.aerialframework.abstract
 	public class AbstractPlugin extends EventDispatcher
 	{
 		private var _schema:Schema;
-		private var _options:Object;
+		private var _options:Object = {};
 		private var _relationships:XML;
 		
 		private var _fw:FileWriter = new FileWriter();
 		
-		public function AbstractPlugin(schema:Schema, options:Object=null, relationships:XML=null)
+		public function AbstractPlugin()
 		{
-			_schema 			= schema;
-			_options 			= options ? options : {};
-			_relationships 		= relationships ? relationships : new XML();
-			
-			initialize();
 		}
 		
-		protected function initialize():void
+		public function initialize():*
 		{
 		}
 
@@ -71,7 +70,7 @@ package org.aerialframework.abstract
 		 *
 		 * @Override
 		 */
-		public function generate():Array
+		public function generate():*
 		{
 			return [];
 		}
@@ -79,7 +78,7 @@ package org.aerialframework.abstract
 		/**
 		 * @Override
 		 */
-		protected function get fileType():String
+		protected function get fileType():*
 		{
 			return null;
 		}
