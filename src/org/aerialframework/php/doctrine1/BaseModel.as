@@ -83,10 +83,14 @@ package org.aerialframework.php.doctrine1
 						fw.add("'primary' => true,").newLine();
 					if(column.autoIncrement)
 						fw.add("'autoincrement' => true,").newLine();
+					if(column.isUnsigned)
+						fw.add("'unsigned' => true,").newLine();
 					if(column.isNotNull && !column.isPrimary)
 						fw.add("'notnull' => true,").newLine();
 					if(column.isUnique && !column.isPrimary)
 						fw.add("'unique' => true,").newLine();
+					if(column.isZeroFill && !column.isPrimary)
+						fw.add("'zerofill' => true,").newLine();
 					//Default value is a mess in MWB because of system constants.  Strings can be entered w/ or w/o quotes.
 					//i.e., CURRENT_TIMESTAMP and 'pending'
 					if(column.defaultValue && isNaN(Number(column.defaultValue)))
