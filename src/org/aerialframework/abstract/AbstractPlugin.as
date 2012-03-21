@@ -79,7 +79,7 @@ package org.aerialframework.abstract
 		/**
 		 * @Override
 		 */
-		protected function get fileType():*
+		public function get fileType():*
 		{
 			return null;
 		}
