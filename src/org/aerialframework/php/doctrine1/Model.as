@@ -17,12 +17,7 @@ package org.aerialframework.php.doctrine1
 		private var tables:Array;
 		private var folderName:String;
 		
-		public function Model(schema:Schema, options:Object=null, relationships:XML=null)
-		{
-			super(schema, options, relationships);
-		}
-		
-		override protected function initialize():*
+		override public function initialize():*
 		{
 			modelsPackage = options.hasOwnProperty(PACKAGE) ? options[PACKAGE] : "org.aerialframework.vo";
 			tables = options.hasOwnProperty(TABLES) ? options[TABLES] : null;
@@ -34,7 +29,7 @@ package org.aerialframework.php.doctrine1
 			return "php-doctrine1-model";
 		}
 		
-		override public function generate():Array
+		override public function generate():*
 		{
 			return generateModels();
 		}

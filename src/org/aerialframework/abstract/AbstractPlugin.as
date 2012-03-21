@@ -1,9 +1,5 @@
 package org.aerialframework.abstract
 {
-	/**
-	 * Asterisk is used for return types to avoid runtime type-mismatches with as3-eval
-	 */
-
 	import com.mysql.workbench.FileWriter;
 	import com.mysql.workbench.model.Schema;
 
@@ -19,6 +15,11 @@ package org.aerialframework.abstract
 		
 		public function AbstractPlugin()
 		{
+			_schema 			= schema;
+			_options 			= options ? options : {};
+			_relationships 		= relationships ? relationships : new XML();
+			
+			initialize();
 		}
 		
 		public function initialize():*

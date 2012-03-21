@@ -1,11 +1,11 @@
 package org.aerialframework.flex
 {
 	import com.betabong.xml.e4x.E4X;
+	import com.betabong.xml.e4x.E4X;
 	import com.mysql.workbench.Inflector;
 	import com.mysql.workbench.model.Column;
 	import com.mysql.workbench.model.DomesticKey;
 	import com.mysql.workbench.model.ForeignKey;
-	import com.mysql.workbench.model.Schema;
 	import com.mysql.workbench.model.Table;
 
 	import org.aerialframework.abstract.AbstractPlugin;
@@ -22,13 +22,8 @@ package org.aerialframework.flex
 		private var modelsPackage:String;
 		private var tables:Array;
 		private var suffix:String;
-		
-		public function Model(schema:Schema, options:Object=null, relationships:XML=null)
-		{
-			super(schema, options, relationships);
-		}
-		
-		override protected function initialize():*
+
+		override public function initialize():*
 		{
 			modelsPackage = options.hasOwnProperty(PACKAGE) ? options[PACKAGE] : "org.aerialframework.vo";
 			tables = options.hasOwnProperty(TABLES) ? options[TABLES] : null;
@@ -130,11 +125,13 @@ package org.aerialframework.flex
 				}
 				
 				//Private vars: Custom Self
-				for each(xmlSelf in relationships.self.(@table == tableName))
+
+				//relationships.self.(@table == tableName)
+				for each(xmlSelf in E4X.evaluate(relationships, 'self.(@table == "' + tableName + '")'))
 				{
 					for each(xmlFK in xmlSelf.fk)
 					{
-						fw.add("private var _"+ Inflector.pluralCamelize(xmlFK.@alias) + ":*;").newLine();
+						fw.add("private var _"+ Inflector.pluralCamelize(E4X.evaluate(xmlFK, '@alias')) + ":*;").newLine();
 					}
 				}
 				
@@ -197,10 +194,11 @@ package org.aerialframework.flex
 				}
 				
 				//Custom Relationships: Many
-				for each(xmlMN in relationships.mn.(table.(text() == tableName).parent()))
+				//relationships.mn.(table.(text() == tableName).parent())
+				for each(xmlMN in E4X.evaluate(relationships, 'mn..table.(text() == "' + tableName + '").parent()'))
 				{
-					t1 = xmlMN.table.(text() == tableName)[0];
-					t2 = xmlMN.table.(text() != tableName)[0];
+					t1 = E4X.evaluate(xmlMN, 'table.(text() == "' + tableName + '")')[0];
+					t2 = E4X.evaluate(xmlMN, 'table.(text() != "' + tableName + '")')[0];
 					alias = (t2.attribute("alias").length() > 0 ? t2.attribute("alias") : t2.text());
 					
 					tmpName = Inflector.pluralCamelize(alias);
@@ -217,11 +215,11 @@ package org.aerialframework.flex
 				}
 				
 				//Custom Relationships: Self
-				for each(xmlSelf in relationships.self.(@table == tableName))
+				for each(xmlSelf in E4X.evaluate(relationships, 'self.(@table == "' + tableName + '")'))
 				{
 					for each(xmlFK in xmlSelf.fk)
 					{
-						tmpName = Inflector.pluralCamelize(xmlFK.@alias);
+						tmpName = Inflector.pluralCamelize(E4X.evaluate(xmlFK, '@alias'));
 						fw.newLine();
 						fw.add("public function get "+ tmpName +"():ArrayCollection").newLine();
 						fw.add("{").newLine().indentForward();

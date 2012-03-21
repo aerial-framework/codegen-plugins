@@ -18,22 +18,17 @@ package org.aerialframework.yaml.doctrine1
 		
 		private var tables:Array;
 		
-		public function YAML(schema:Schema, options:Object=null, relationships:XML=null)
-		{
-			super(schema, options, relationships);
-		}
-		
-		override protected function initialize():void
+		override public function initialize():*
 		{
 			tables = options.hasOwnProperty(TABLES) ? options[TABLES] : null;
 		}
 		
-		override protected function get fileType():String
+		override protected function get fileType():*
 		{
 			return "yaml-doctrine1-yaml";
 		}
 		
-		override public function generate():Array
+		override public function generate():*
 		{
 			return generateYaml();
 		}

@@ -1,6 +1,5 @@
 package org.aerialframework.php
 {
-	import com.mysql.workbench.model.Schema;
 	import com.mysql.workbench.model.Table;
 
 	import org.aerialframework.abstract.AbstractPlugin;
@@ -16,24 +15,19 @@ package org.aerialframework.php
 		private var tables:Array;
 		private var suffix:String;
 		
-		public function Service(schema:Schema, options:Object=null, relationships:XML=null)
-		{
-			super(schema, options, relationships);
-		}
-		
-		override protected function initialize():void
+		override public function initialize():*
 		{
 			servicesPackage = options.hasOwnProperty(PACKAGE) ? options[PACKAGE] : "org.aerialframework.service";
 			tables = options.hasOwnProperty(TABLES) ? options[TABLES] : null;
 			suffix = options.hasOwnProperty(SUFFIX) ? options[SUFFIX] : "Service";
 		}
 		
-		override protected function get fileType():String
+		override protected function get fileType():*
 		{
 			return "php-doctrine1-service";
 		}
 		
-		override public function generate():Array
+		override public function generate():*
 		{
 			return generateServices();
 		}

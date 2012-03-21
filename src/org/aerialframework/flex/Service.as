@@ -1,6 +1,5 @@
 package org.aerialframework.flex
 {
-	import com.mysql.workbench.model.Schema;
 	import com.mysql.workbench.model.Table;
 
 	import org.aerialframework.abstract.AbstractPlugin;
@@ -22,12 +21,7 @@ package org.aerialframework.flex
 		private var modelSuffix:String;
 		private var serviceSuffix:String;
 		
-		public function Service(schema:Schema, options:Object=null, relationships:XML=null)
-		{
-			super(schema, options, relationships);
-		}
-		
-		override protected function initialize():void
+		override public function initialize():*
 		{
 			modelPackage = options.hasOwnProperty(MODEL_PACKAGE) ? options[MODEL_PACKAGE] : "org.aerialframework.vo";
 			servicePackage = options.hasOwnProperty(SERVICE_PACKAGE) ? options[SERVICE_PACKAGE] : "org.aerialframework.service";
@@ -37,12 +31,12 @@ package org.aerialframework.flex
 			serviceSuffix = options.hasOwnProperty(SERVICE_SUFFIX) ? options[SERVICE_SUFFIX] : "Service";
 		}
 		
-		override protected function get fileType():String
+		override protected function get fileType():*
 		{
 			return "flex-service";
 		}
 		
-		override public function generate():Array
+		override public function generate():*
 		{
 			return generateServices();
 		}

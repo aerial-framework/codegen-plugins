@@ -1,11 +1,11 @@
 package org.aerialframework.php.doctrine1
 {
+	import com.betabong.xml.e4x.E4X;
 	import com.mysql.workbench.Inflector;
 	import com.mysql.workbench.model.Column;
 	import com.mysql.workbench.model.DomesticKey;
 	import com.mysql.workbench.model.ForeignKey;
 	import com.mysql.workbench.model.Index;
-	import com.mysql.workbench.model.Schema;
 	import com.mysql.workbench.model.Table;
 
 	import org.aerialframework.abstract.AbstractPlugin;
@@ -21,24 +21,19 @@ package org.aerialframework.php.doctrine1
 		private var tables:Array;
 		private var folderName:String;
 		
-		public function BaseModel(schema:Schema, options:Object=null, relationships:XML=null)
-		{
-			super(schema, options, relationships);
-		}
-		
-		override protected function initialize():void
+		override public function initialize():*
 		{
 			modelsPackage = options.hasOwnProperty(PACKAGE) ? options[PACKAGE] : "org.aerialframework.vo";
 			tables = options.hasOwnProperty(TABLES) ? options[TABLES] : null;
 			folderName = options.hasOwnProperty(BASE_FOLDER_NAME) ? options[BASE_FOLDER_NAME] : "base";
 		}
 		
-		override protected function get fileType():String
+		override protected function get fileType():*
 		{
 			return "php-doctrine1-basemodel";
 		}
 		
-		override public function generate():Array
+		override public function generate():*
 		{
 			return generateBaseModels();
 		}
@@ -155,25 +150,25 @@ package org.aerialframework.php.doctrine1
 				
 				//Custom Relationships: Many
 				var tableName:String = table.name;
-				for each(var xmlMN:XML in relationships.mn.(table.(text() == tableName).parent()))
+				for each(var xmlMN:XML in E4X.evaluate(relationships, 'mn..table.(text() == "' + tableName + '").parent()'))
 				{
-					var t1:XML = xmlMN.table.(text() == tableName)[0];
-					var t2:XML = xmlMN.table.(text() != tableName)[0];
+					var t1:XML = E4X.evaluate(xmlMN, 'table.(text() == "' + tableName + '")')[0];
+					var t2:XML = E4X.evaluate(xmlMN, 'table.(text() != "' + tableName + '")')[0];
 					alias = (t2.attribute("alias").length() > 0 ? t2.attribute("alias") : t2.text());
 					
 					fw.add("$this->hasMany('"+ t2.text() +" as "+ Inflector.pluralCamelize(alias) +"', array(").newLine().indentForward();
-					fw.add("'refClass' => '"+ xmlMN.@joinTable +"',").newLine();
-					fw.add("'local' => '"+ t1.@fk +"',").newLine();
-					fw.add("'foreign' => '"+ t2.@fk +"'));").newLine().indentBack();
+					fw.add("'refClass' => '"+ E4X.evaluate(xmlMN, '@joinTable') +"',").newLine();
+					fw.add("'local' => '"+ E4X.evaluate(t1, '@fk') +"',").newLine();
+					fw.add("'foreign' => '"+ E4X.evaluate(t2, '@fk') +"'));").newLine().indentBack();
 				}
 				
 				//Custom Relationships: Self
-				for each(var xmlSelf:XML in relationships.self.(@table == tableName))
+				for each(var xmlSelf:XML in E4X.evaluate(relationships, 'self.(@table == "' + tableName + '")'))
 				{
 					for each(var xmlFK:XML in xmlSelf.fk)
 					{
-						fw.add("$this->hasMany('"+ table.name +" as "+ Inflector.pluralCamelize(xmlFK.@alias) +"', array(").newLine().indentForward();
-						fw.add("'refClass' => '"+ xmlSelf.@joinTable +"',").newLine();
+						fw.add("$this->hasMany('"+ table.name +" as "+ Inflector.pluralCamelize(E4X.evaluate(xmlFK, '@alias')) +"', array(").newLine().indentForward();
+						fw.add("'refClass' => '"+ E4X.evaluate(xmlSelf, '@joinTable') +"',").newLine();
 						fw.add("'local' => '"+ table.primaryKey.columns[0].name +"',").newLine();
 						fw.add("'foreign' => '"+ xmlFK.text() +"'));").newLine().indentBack();
 					}
