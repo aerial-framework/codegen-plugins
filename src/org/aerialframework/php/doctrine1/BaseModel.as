@@ -87,8 +87,6 @@ package org.aerialframework.php.doctrine1
 						fw.add("'unsigned' => true,").newLine();
 					if(column.isNotNull && !column.isPrimary)
 						fw.add("'notnull' => true,").newLine();
-					if(column.isUnique && !column.isPrimary)
-						fw.add("'unique' => true,").newLine();
 					if(column.isZeroFill && !column.isPrimary)
 						fw.add("'zerofill' => true,").newLine();
 					//Default value is a mess in MWB because of system constants.  Strings can be entered w/ or w/o quotes.
