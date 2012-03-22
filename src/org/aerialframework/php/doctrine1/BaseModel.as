@@ -10,6 +10,7 @@ package org.aerialframework.php.doctrine1
 
 	import org.aerialframework.abstract.AbstractPlugin;
 	import org.aerialframework.abstract.GeneratedFile;
+	import org.aerialframework.abstract.OptionDescriptor;
 
 	public class BaseModel extends AbstractPlugin
 	{		
@@ -36,6 +37,14 @@ package org.aerialframework.php.doctrine1
 		override public function get language():*
 		{
 			return "PHP";
+		}
+
+		override public function get exposedOptions():*
+		{
+			return [
+					new OptionDescriptor("Package", PACKAGE, OptionDescriptor.TEXT_FIELD, "text"),
+					new OptionDescriptor("Base Folder Name", BASE_FOLDER_NAME, OptionDescriptor.TEXT_FIELD, "text")
+			];
 		}
 		
 		override public function generate():*

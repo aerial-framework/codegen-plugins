@@ -4,6 +4,7 @@ package org.aerialframework.flex
 
 	import org.aerialframework.abstract.AbstractPlugin;
 	import org.aerialframework.abstract.GeneratedFile;
+	import org.aerialframework.abstract.OptionDescriptor;
 
 	public class Service extends AbstractPlugin
 	{
@@ -40,6 +41,17 @@ package org.aerialframework.flex
 		{
 			return "ActionScript 3.0";
 		}
+
+		override public function get exposedOptions():*
+		{
+			return [
+				new OptionDescriptor("Model Package", MODEL_PACKAGE, OptionDescriptor.TEXT_FIELD, "text"),
+				new OptionDescriptor("Model Suffix", MODEL_SUFFIX, OptionDescriptor.TEXT_FIELD, "text"),
+				new OptionDescriptor("Service Package", SERVICE_PACKAGE, OptionDescriptor.TEXT_FIELD, "text"),
+				new OptionDescriptor("Service Suffix", SERVICE_SUFFIX, OptionDescriptor.TEXT_FIELD, "text"),
+				new OptionDescriptor("Bootstrap Package", BOOTSTRAP_PACKAGE, OptionDescriptor.TEXT_FIELD, "text")
+			];
+		}
 		
 		override public function generate():*
 		{
@@ -51,7 +63,7 @@ package org.aerialframework.flex
 			if(!servicePackage || !modelPackage)
 				throw new Error("'servicePackage' or 'modelPackage' are not set.");	
 			
-			var table:Table
+			var table:Table;
 			var serviceClass:String;
 			var modelClass:String;
 			

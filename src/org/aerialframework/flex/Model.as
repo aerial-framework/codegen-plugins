@@ -9,6 +9,7 @@ package org.aerialframework.flex
 
 	import org.aerialframework.abstract.AbstractPlugin;
 	import org.aerialframework.abstract.GeneratedFile;
+	import org.aerialframework.abstract.OptionDescriptor;
 
 	import util.*;
 
@@ -38,7 +39,15 @@ package org.aerialframework.flex
 		{
 			return "ActionScript 3.0";
 		}
-		
+
+override public function get exposedOptions():*
+{
+	return [
+			new OptionDescriptor("Package", PACKAGE, OptionDescriptor.TEXT_FIELD, "text"),
+			new OptionDescriptor("Suffix", SUFFIX, OptionDescriptor.TEXT_FIELD, "text")
+	];
+}
+
 		override public function generate():*
 		{
 			return generateModels();
@@ -147,7 +156,7 @@ package org.aerialframework.flex
 					
 					fw.add("public function get "+ column.name +"():" + as3Type).newLine();
 					fw.add("{").newLine().indentForward();
-					fw.add("return _" + column.name).newLine().indentBack();
+					fw.add("return _" + column.name + ";").newLine().indentBack();
 					fw.add("}").newLine(2);
 					
 					fw.add("public function set "+ column.name +"(value:"+ as3Type +"):void").newLine();

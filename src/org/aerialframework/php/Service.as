@@ -4,6 +4,7 @@ package org.aerialframework.php
 
 	import org.aerialframework.abstract.AbstractPlugin;
 	import org.aerialframework.abstract.GeneratedFile;
+	import org.aerialframework.abstract.OptionDescriptor;
 
 	public class Service extends AbstractPlugin
 	{
@@ -30,6 +31,14 @@ package org.aerialframework.php
 		override public function get language():*
 		{
 			return "PHP";
+		}
+
+		override public function get exposedOptions():*
+		{
+			return [
+					new OptionDescriptor("Package", PACKAGE, OptionDescriptor.TEXT_FIELD, "text"),
+					new OptionDescriptor("Suffix", SUFFIX, OptionDescriptor.TEXT_FIELD, "text")
+			];
 		}
 		
 		override public function generate():*

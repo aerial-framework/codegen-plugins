@@ -31,6 +31,11 @@ package org.aerialframework.abstract
 			return "Unspecified";
 		}
 
+		public function get exposedOptions():*
+		{
+			return null;
+		}
+
 		public function get schema():Schema
 		{
 			return _schema;
