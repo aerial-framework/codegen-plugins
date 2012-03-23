@@ -64,8 +64,8 @@ package org.aerialframework.php
 				fw.add('class ' + table.name + suffix + ' extends AbstractService').newLine().add('{').newLine();
 				fw.indentForward().add('public $modelName = "'+ table.className +'";').newLine();
 				fw.indentBack().add('}').newLine();
-				fw.indentBack().add('?>').newLine(3);
-				
+				fw.indentBack().newLine(2);
+
 				files.push(new GeneratedFile(this.fileType, this.servicesPackage, table.className + suffix + ".php", fw.stream));
 			}
 			
