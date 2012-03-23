@@ -10,14 +10,12 @@ package org.aerialframework.flex
 	{
 		public static const MODEL_PACKAGE:String = "modelPackage";
 		public static const SERVICE_PACKAGE:String = "servicePackage";
-		public static const BOOTSTRAP_PACKAGE:String = "bootstrapPackage";
 		public static const TABLES:String = "tables";
 		public static const MODEL_SUFFIX:String = "modelSuffix";
 		public static const SERVICE_SUFFIX:String = "serviceSuffix";
 		
 		private var modelPackage:String;
 		private var servicePackage:String;
-		private var bootstrapPackage:String;
 		private var tables:Array;
 		private var modelSuffix:String;
 		private var serviceSuffix:String;
@@ -26,7 +24,6 @@ package org.aerialframework.flex
 		{
 			modelPackage = options.hasOwnProperty(MODEL_PACKAGE) ? options[MODEL_PACKAGE] : "org.aerialframework.vo";
 			servicePackage = options.hasOwnProperty(SERVICE_PACKAGE) ? options[SERVICE_PACKAGE] : "org.aerialframework.service";
-			bootstrapPackage = options.hasOwnProperty(BOOTSTRAP_PACKAGE) ? options[BOOTSTRAP_PACKAGE] : "org.aerialframework.bootstrap";
 			tables = options.hasOwnProperty(TABLES) ? options[TABLES] : null;
 			modelSuffix = options.hasOwnProperty(MODEL_SUFFIX) ? options[MODEL_SUFFIX] : "VO";
 			serviceSuffix = options.hasOwnProperty(SERVICE_SUFFIX) ? options[SERVICE_SUFFIX] : "Service";
@@ -48,8 +45,7 @@ package org.aerialframework.flex
 				new OptionDescriptor("Model Package", MODEL_PACKAGE, OptionDescriptor.TEXT_FIELD, "text"),
 				new OptionDescriptor("Model Suffix", MODEL_SUFFIX, OptionDescriptor.TEXT_FIELD, "text"),
 				new OptionDescriptor("Service Package", SERVICE_PACKAGE, OptionDescriptor.TEXT_FIELD, "text"),
-				new OptionDescriptor("Service Suffix", SERVICE_SUFFIX, OptionDescriptor.TEXT_FIELD, "text"),
-				new OptionDescriptor("Bootstrap Package", BOOTSTRAP_PACKAGE, OptionDescriptor.TEXT_FIELD, "text")
+				new OptionDescriptor("Service Suffix", SERVICE_SUFFIX, OptionDescriptor.TEXT_FIELD, "text")
 			];
 		}
 		
@@ -81,13 +77,12 @@ package org.aerialframework.flex
 				fw.add('package ' + this.servicePackage).newLine();
 				fw.add("{").newLine().indentForward();
 				fw.add("import org.aerialframework.rpc.AbstractService;").newLine(2);
-				fw.add("import "+ this.modelPackage +"."+ modelClass +";").newLine();
-				fw.add("import "+ this.bootstrapPackage +".Aerial;").newLine(2);
+				fw.add("import "+ this.modelPackage +"."+ modelClass +";").newLine(2);
 				fw.add("public class "+ serviceClass +" extends AbstractService").newLine();
 				fw.add("{").newLine().indentForward();
 				fw.add("public function "+ serviceClass +"()").newLine();
 				fw.add("{").newLine().indentForward();
-				fw.add('super("'+serviceClass+'", Aerial, '+ modelClass +');').newLine().indentBack();
+				fw.add('super("'+serviceClass+'", '+ modelClass +');').newLine().indentBack();
 				fw.add("}").newLine().indentBack();
 				fw.add("}").newLine().indentBack();
 				fw.add("}").newLine();
