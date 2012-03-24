@@ -97,7 +97,7 @@ package org.aerialframework.php
 				var httpVerb:String = getHTTPVerb(method);
 
 				fw.add("/**").newLine();
-				fw.add(" * @route\t\t\t/" + serviceName + "/" + method).newLine();
+				fw.add(" * @route\t\t\t\t/" + serviceName + "/" + method).newLine();
 				fw.add(" * @routeMethods\t\t" + httpVerb).newLine();
 				fw.add(" */").newLine();
 				
@@ -115,11 +115,11 @@ package org.aerialframework.php
 			switch(method)
 			{
 				case "save":
-					return "public function save($object, $returnCompleteObject = false, $mapToModel = true)";
+					return "public function save($object, $returnCompleteObject = true, $mapToModel = true)";
 				case "update":
-					return "public function update($object, $returnCompleteObject = false, $mapToModel = true)";
+					return "public function update($object, $returnCompleteObject = true, $mapToModel = true)";
 				case "insert":
-					return "public function insert($object, $returnCompleteObject = false, $mapToModel = true)";
+					return "public function insert($object, $returnCompleteObject = true, $mapToModel = true)";
 				case "drop":
 					return "public function drop($object, $mapToModel = true)";
 				case "count":
@@ -134,15 +134,15 @@ package org.aerialframework.php
 			switch(method)
 			{
 				case "save":
-					return "parent::save($object, $returnCompleteObject, $mapToModel);";
+					return "return parent::save($object, $returnCompleteObject, $mapToModel);";
 				case "update":
-					return "parent::update($object, $returnCompleteObject, $mapToModel);";
+					return "return parent::update($object, $returnCompleteObject, $mapToModel);";
 				case "insert":
-					return "parent::insert($object, $returnCompleteObject, $mapToModel);";
+					return "return parent::insert($object, $returnCompleteObject, $mapToModel);";
 				case "drop":
-					return "parent::drop($object, $mapToModel);";
+					return "return parent::drop($object, $mapToModel);";
 				case "count":
-					return "parent::count();";
+					return "return parent::count();";
 			}
 
 			return null;
