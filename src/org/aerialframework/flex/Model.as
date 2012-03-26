@@ -40,13 +40,13 @@ package org.aerialframework.flex
 			return "ActionScript 3.0";
 		}
 
-override public function get exposedOptions():*
-{
-	return [
-			new OptionDescriptor("Package", PACKAGE, OptionDescriptor.TEXT_FIELD, "text"),
-			new OptionDescriptor("Suffix", SUFFIX, OptionDescriptor.TEXT_FIELD, "text")
-	];
-}
+		override public function get exposedOptions():*
+		{
+			return [
+					new OptionDescriptor("Package", PACKAGE, OptionDescriptor.TEXT_FIELD, "text"),
+					new OptionDescriptor("Suffix", SUFFIX, OptionDescriptor.TEXT_FIELD, "text")
+			];
+		}
 
 		override public function generate():*
 		{
@@ -121,7 +121,7 @@ override public function get exposedOptions():*
 					if(!aliases["_" + alias])
 						aliases["_" + alias] = 1;
 					else
-						aliases["_" + alias]++;
+						aliases["_" + alias] += 1;
 					tmpName = alias + (aliases["_" + alias] > 1 ? aliases["_" + alias] : "" );
 					
 					fw.add("private var _"+ tmpName + ":*;").newLine();
@@ -190,7 +190,7 @@ override public function get exposedOptions():*
 					if(!aliases["_" + alias])
 						aliases["_" + alias] = 1;
 					else
-						aliases["_" + alias]++;
+						aliases["_" + alias] += 1;
 					
 					tmpName = alias + (aliases["_" + alias] > 1 ? aliases["_" + alias] : "" );
 					fw.newLine();

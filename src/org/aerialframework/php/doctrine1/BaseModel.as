@@ -157,7 +157,7 @@ package org.aerialframework.php.doctrine1
 					if(!aliases["_" + alias])
 						aliases["_" + alias] = 1;
 					else
-						aliases["_" + alias]++;
+						aliases["_" + alias] += 1;
 					
 					fw.add("$this->hasMany('"+ dk.referencedTable.className +" as "+ alias + (aliases["_" + alias] > 1 ? aliases["_" + alias] : "" ) +"', array(").newLine().indentForward();
 					fw.add("'local' => '"+ Column(table.primaryKey.columns[0]).name +"',").newLine();
